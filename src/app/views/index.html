@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>pGInterprete</title>
+        <!-- 1_ popper.js/jquery/Bootstrap -->
+        <script>let $ = require('jquery');</script>
+        <script>require('popper.js');</script>
+        <link rel="stylesheet" href="nodemodules://bootstrap/dist/css/bootstrap.min.css">
+        <script>require('bootstrap');</script>
+        <style>
+            .panel-resizable {
+                resize: vertical;
+                overflow: auto;
+            }
+        </style>
+        <!-- 0_ popper.js/jquery/Bootstrap -->
+        <!-- 1_CodeMirror -->
+        <link rel="stylesheet" href="nodemodules://codemirror/lib/codemirror.css">
+        <script src="nodemodules://codemirror/lib/codemirror.js"></script>
+        <!-- 0_CodeMirror -->
+
+        <!-- 1_Xterm -->
+        <link rel="stylesheet" href="nodemodules://xterm/dist/xterm.css" />
+        <script src="nodemodules://xterm/dist/addons/fit/fit.js"></script>
+        <!-- 0_Xterm -->
+
+        <link rel="stylesheet" href="../stylesheets/index.css">
+    </head>
+    <body>
+        <div id="editor"></div>
+        <div class="term-container" id="term-container"></div>
+
+        <script src="../scripts/app.js"></script>
+        <script src="../scripts/file_management.js"></script>
+        <script src="../scripts/terminal.js"></script>
+    </body>
+</html>
