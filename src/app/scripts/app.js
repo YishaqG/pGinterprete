@@ -16,7 +16,7 @@ var code_mirror = CodeMirror(
 );
 
 // Initialize node-pty with an appropriate shell
-const shell = process.env[os.platform() === 'win32' ? 'COMSPEC' : 'SHELL'];
+const shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash';
 const ptyProcess = pty.spawn(shell, [], {
   name: 'xterm-color',
   cols: 80,
@@ -32,6 +32,9 @@ const xterm = new Terminal({
     width:'100%',
     height:'100%'
 });
+xterm.setOption('fontSize', 15);
+xterm.setOption('fontWeight', 'normal');
+xterm.setOption('fontFamily', 'monospace');
 
 xterm.open( document.getElementById('term-container') );
 xterm.fit();
@@ -42,43 +45,51 @@ xterm.on('data', (data) => {
 });
 
 ptyProcess.on('data', function (data) {
+    let find = /Semantic:INFO: CREATE:/g.exec(data)
+    console.log( find[0] );
     xterm.write(data);
 });
-ptyProcess.write("export PS1='> '\n");
-ptyProcess.write("\n");
-ptyProcess.write("\n");
-ptyProcess.write("clear\n");
+ptyProcess.write("PS1='> '\n");
+ptyProcess.write("clear");
 
 
-function calculateNumberOfTerminalRows() {
+function calculateTerminalHeightRowBase( window_height, height_ratio, font_size ) {
     // https://dev.to/shalvah/i-was-bored-so-i-made-my-website-into-a-node-package-heres-how-2id3
     let testElement = document.createElement('div');
-    testElement.innerText = 'h';
+    testElement.innerText = 'a';
     testElement.style.visibility = 'hidden';
     document.querySelector('.term-container').append(testElement);
-    testElement.style.fontSize = '14px';
+    testElement.style.fontSize = font_size;
     let fontHeight = testElement.clientHeight + 1;
     testElement.remove();
-    return Math.floor( $(window).height()* 0.6/ fontHeight) - 2;
+    return height_ratio > 0 ? Math.floor( window_height/fontHeight*(1-height_ratio) )-2 : 0;
 }
 
-function calculateNumberOfTerminalCols() {
-    // https://dev.to/shalvah/i-was-bored-so-i-made-my-website-into-a-node-package-heres-how-2id3
-    const ctx = document.createElement("canvas").getContext('2d');
-    ctx.font = '14px monospace';
-    const fontWidth = ctx.measureText('h').width + 1;
-    return Math.floor( $(window).width() * 0.8 / fontWidth) + 3;
+function calculateTerminalWidthColumnBase(window_width, width_ratio, font ) {
+    // https://stackoverflow.com/questions/118241/calculate-text-width-with-javascript
+    let ctx = document.createElement("canvas").getContext('2d');
+    ctx.font = 'normal 15px monospace';
+    let fontWidth = ctx.measureText('a').width;
+    return width_ratio > 0 ? Math.floor( window_width/fontWidth ) : 0;
 }
 
-function resize(){
+var EDITOR = {height_ratio:0.971, width_ratio:0.979};
+var TERMINAL = {height_ratio:0, width_ratio:1};
+function resize( ) {
     width = $(window).width();
     height = $(window).height();
-    code_mirror.setSize(
-        width,
-        height*0.6
-    );
 
-    xterm.resize(calculateNumberOfTerminalCols(), calculateNumberOfTerminalRows());
+    code_mirror.setSize(
+        width*EDITOR.width_ratio,
+        height*EDITOR.height_ratio
+    );
+    document.getElementById("variables-tap").style.height = (height*EDITOR.height_ratio-1)+"px";
+
+    let terminal_width = calculateTerminalWidthColumnBase( width, TERMINAL.width_ratio, "normal 15px monospace" );
+    let terminal_height = calculateTerminalHeightRowBase( height, TERMINAL.height_ratio, "15px" );
+    ptyProcess.resize(terminal_width, terminal_height);
+
+    xterm.resize(terminal_width, terminal_height);
     xterm.fit();
 }
 

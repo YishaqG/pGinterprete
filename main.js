@@ -165,9 +165,9 @@ function createWindow() {
                 }
               },
               {
-                label: "About Markdownify",
+                label: "About pGInterprete",
                 click: () => {
-                  dialog.showMessageBox({title: "About Markdownify", type:"info", message: "A minimal Markdown Editor desktop app. \nMIT Copyright (c) 2016 Amit Merchant <bullredeyes@gmail.com>", buttons: ["Close"] });
+                  dialog.showMessageBox({title: "About pGInterprete", type:"info", message: "A powerfull pequeño Gran Interprete desktop app. \nMIT Copyright (c) 2019 Enrique Y. German Totosaus <yishaq95@gmail.com>\nMIT Copyright (c) 2019 Brisa Isabel M. Romero <brisa.romen@gmail.com>", buttons: ["Close"] });
                 }
               }
             ]

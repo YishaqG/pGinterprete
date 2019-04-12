@@ -3,4 +3,57 @@ body {
     margin-left: 0;
     padding-right: 0;
     padding-left: 0;
+    overflow: hidden;
+}
+
+.term-tap {
+    height: 0; /* 0 height - change this with JavaScript */
+    width: 100%; /* 100% - Full width */
+    position: relative;
+    z-index: 2;
+    overflow-y: hidden;
+    border-top: 10px solid #2196F3;
+    padding-top: 10px;
+    background-color: #2196F3;
+}
+
+.term-tap-button {
+    position: fixed;
+    z-index: 2;
+    right: calc(50% - 25px);
+    bottom: 0px;
+    width: 50px;
+    height: 20px;
+    color: white;
+    text-align: center;
+    background-color: #2196F3;
+    cursor: pointer;
+}
+
+.variables-tap {
+    position: relative;
+    float: left;
+    height: 350px; /* 100% - Full height */
+    width: 0; /* 0 width - change this with JavaScript */
+    z-index: 1;
+    border-left: 10px solid #fddc54;
+    padding-left: 10px;
+    background-color: #fddc54;
+}
+
+.variables-tap-button {
+    position: fixed;
+    z-index: 1;
+    top: calc(50% - 25px);
+    right: 0px;
+    width: 20px;
+    height: 50px;
+    color: white;
+    text-align: center;
+    background-color: #fddc54;
+    cursor: pointer;
+}
+
+table {
+    margin-top: 10px;
 }

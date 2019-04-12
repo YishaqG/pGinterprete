@@ -8,13 +8,8 @@
         <script>require('popper.js');</script>
         <link rel="stylesheet" href="nodemodules://bootstrap/dist/css/bootstrap.min.css">
         <script>require('bootstrap');</script>
-        <style>
-            .panel-resizable {
-                resize: vertical;
-                overflow: auto;
-            }
-        </style>
         <!-- 0_ popper.js/jquery/Bootstrap -->
+        <link rel="stylesheet" href="nodemodules://@fortawesome/fontawesome-free/css/all.min.css">
         <!-- 1_CodeMirror -->
         <link rel="stylesheet" href="nodemodules://codemirror/lib/codemirror.css">
         <script src="nodemodules://codemirror/lib/codemirror.js"></script>
@@ -28,11 +23,55 @@
         <link rel="stylesheet" href="../stylesheets/index.css">
     </head>
     <body>
-        <div id="editor"></div>
-        <div class="term-container" id="term-container"></div>
+        <div id="editor" style="float:left"></div>
+        <div class="variables-tap" id="variables-tap">
+            <span class="variables-tap-button" id="variables-tap-button" onclick="variables_tap()">
+                <i class="fas fa-angle-right"></i>
+                <i class="fas fa-angle-left"></i>
+            </span>
+            <table class="table table-striped table-dark">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+
+        <div class="term-tap" id="term-tap">
+            <span class="term-tap-button" id="term-tap-button" onclick="terminal_tap()">
+                <i class="fas fa-angle-up"></i>
+                <i class="fas fa-angle-down"></i>
+            </span>
+            <div class="term-container" id="term-container"></div>
+        </div>
 
         <script src="../scripts/app.js"></script>
         <script src="../scripts/file_management.js"></script>
         <script src="../scripts/terminal.js"></script>
+        <script src="../scripts/variables.js"></script>
     </body>
 </html>
