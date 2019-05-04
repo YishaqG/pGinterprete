@@ -44,10 +44,23 @@ xterm.on('data', (data) => {
     ptyProcess.write(data);
 });
 
+const regex = /(CREATE|UPDATE|DELETE):(\w+):(.+)/g;
+let var_operations = [];
 ptyProcess.on('data', function (data) {
-    let find = /Semantic:INFO: CREATE:/g.exec(data)
-    console.log( find[0] );
-    xterm.write(data);
+  xterm.write(data);
+
+  let match = regex.exec(data);
+  do {
+    let {$1, $2, $3} = RegExp;
+    if( $1 && $2 && $3){
+      $3 = $3.replace(/'/g, '"');
+      console.log($1, $2, $3);
+      var_operations.push( [$1, $2, JSON.parse($3)] );
+      match = regex.exec(data);
+      $1, $2, $3 = null;
+    }
+  } while( match );
+
 });
 ptyProcess.write("PS1='> '\n");
 ptyProcess.write("clear");

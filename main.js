@@ -1,5 +1,5 @@
-const { app, protocol, Menu, dialog, BrowserWindow } = require('electron');
-const path = require('path')
+const { shell, app, protocol, Menu, dialog, BrowserWindow } = require('electron');
+const path = require('path');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -153,19 +153,13 @@ function createWindow() {
             label: "&Help",
             submenu: [
               {
-                label: "Documentation",
+                label: "Documentación",
                 click:  () => {
-                  shell.openExternal(appDetails.repository.docs);
+                  shell.openItem("/home/calsifer/Documents/Materias/Prim19/AppsMult/home.html");
                 }
               },
               {
-                label: "Report Issue",
-                click: () => {
-                  shell.openExternal(appDetails.bugs.url);
-                }
-              },
-              {
-                label: "About pGInterprete",
+                label: "Información pGInterprete",
                 click: () => {
                   dialog.showMessageBox({title: "About pGInterprete", type:"info", message: "A powerfull pequeño Gran Interprete desktop app. \nMIT Copyright (c) 2019 Enrique Y. German Totosaus <yishaq95@gmail.com>\nMIT Copyright (c) 2019 Brisa Isabel M. Romero <brisa.romen@gmail.com>", buttons: ["Close"] });
                 }

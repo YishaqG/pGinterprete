@@ -1,9 +1,10 @@
 
 ipcRenderer.on('interpreter-run', () => {
     if( this.current_file.length > 0 ) {
-        ptyProcess.write(`\n`);
-        ptyProcess.write(`\n`);
-        ptyProcess.write(`clear\n`);
+      var_operations = [];
+        ptyProcess.write("\n");
+        ptyProcess.write("\n");
+        ptyProcess.write("clear\n");
         ptyProcess.write(`./main.py -in="${this.current_file}" -fw -i\n`);
     }
     else {
